@@ -24,32 +24,39 @@ f3 = open('zhengxiang_false.txt', 'a+')
 def index():
     global next_line
     if next_line == "":
-        next_line = lines.next()
-        next_line.decode("utf-8")
+        try:
+            next_line = lines.next()
+            next_line.decode("utf-8")
+        except Exception:
+            next_line = "没了！！！"
 
     return render_template('index.html', line=next_line, counts=counts)
 
 @app.route('/true')
 def true():
     line = request.args.get('line', '')
-    f2.write(line)
-    f2.flush()
-    global counts
-    counts -= 1
     global next_line
-    next_line = ""
+    if line.strip() == next_line.strip():
+        f2.write(line)
+        f2.flush()
+        global counts
+        counts -= 1
+        next_line = ""
+
+
     return redirect(url_for('index'))
 
 
 @app.route('/false')
 def false():
     line = request.args.get('line', '')
-    f3.write(line)
-    f3.flush()
-    global counts
-    counts -= 1
     global next_line
-    next_line = ""
+    if line.strip() == next_line.strip():
+        f3.write(line)
+        f3.flush()
+        global counts
+        counts -= 1
+        next_line = ""
     return redirect(url_for('index'))
 
 
