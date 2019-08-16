@@ -1,0 +1,1 @@
+nohup python app_zhengxiang.py > log 2>&1 &
