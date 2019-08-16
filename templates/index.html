@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+{% if line %}
+  <h4> {{ line.decode("utf-8") }}</h4>
+{% else %}
+  <h4>没有了</h4>
+{% endif %}
+
+剩余行数: {{ counts }}
+
+
+<form action="{{ url_for('true') }}" method=get>
+    <dl>
+      <dd><input type=hidden name="line" value='{{ line.decode("utf-8") }}'>
+      <dd><input type=submit value=true>
+    </dl>
+</form>
+
+
+<br><br><br>
+<form action="{{ url_for('false') }}" method=get>
+    <dl>
+      <dd><input type=hidden name="line" value='{{ line.decode("utf-8") }}'>
+      <dd><input type=submit value=false>
+    </dl>
+</form>
+
+</body>
+
+
+</html>
